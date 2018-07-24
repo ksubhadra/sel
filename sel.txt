@@ -1,0 +1,87 @@
+package Selfire;
+
+
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+public class FindElementDemo1
+{
+
+	public static void main(String[] args) throws InterruptedException 
+	{
+		System.setProperty("webdriver.firefox.bin",
+				"C:/Users/bkaligot/AppData/Local/Mozilla Firefox/firefox.exe");
+        FirefoxProfile profile = new FirefoxProfile();
+        profile.setPreference("network.proxy.type", 1);
+        profile.setPreference("network.proxy.http", "10.219.96.26");
+        profile.setPreference("network.proxy.http_port", 8080);
+        profile.setPreference("network.proxy.ssl", "10.219.96.26");
+        profile.setPreference("network.proxy.ssl_port", 8080);
+        
+        FirefoxDriver driver = new FirefoxDriver(profile);
+		//driver.get("file:///D:/Users/chenitha/Desktop/Recipe_class_registration.html");
+        driver.get("http://demo.opencart.com/");
+		Thread.sleep(1000);
+		System.out.println(driver.getTitle());
+         
+		driver.findElement(By.linkText("My Account")).click();
+		driver.findElement(By.linkText("Register")).click();
+		
+		String Head1="Register Account";	
+		String Head=driver.getTitle();
+		if(Head1.equals(Head))
+		{
+			System.out.println("Titles are matched");
+		}
+		else
+		{
+			System.out.println(driver.getTitle());	
+		}
+		
+		java.util.List<WebElement> links = driver.findElements(By.tagName("a"));
+		 
+		System.out.println(links.size());
+		
+		Thread.sleep(1000);
+		driver.findElement(By.name("firstname")).sendKeys("Subhadra");
+		driver.findElement(By.xpath(".//*[@id='input-lastname']")).sendKeys("Kaligotla");
+		driver.findElement(By.cssSelector("input[id='input-email']")).sendKeys("subhadra@gmail.com");
+		driver.findElement(By.name("telephone")).sendKeys("94928947284");
+		driver.findElement(By.cssSelector("input[id='input-password']")).sendKeys("Subhadra");
+		driver.findElement(By.xpath(".//*[@id='input-confirm']")).sendKeys("Subhadra");
+		
+		//WebElement searchBox=driver.findElement(By.name("search"));
+		
+		//WebElement searchBox=driver.findElement(By.className("form-control input-lg"));
+		//searchBox.sendKeys("Phone");
+		
+		//Thread.sleep(10000);
+		
+		
+		driver.findElement(By.xpath(".//*[@id='content']/form/div/div/input[1]")).click();
+		driver.findElement(By.cssSelector("#content > form > div > div > input.btn.btn-primary")).click();
+		
+
+		Thread.sleep(1000);
+		String Head2="Register Account";	
+		String Heading=driver.getTitle();
+		if(Head2.equals(Heading))
+		{
+			System.out.println("Text Your account has been created is present");
+		}
+		else
+		{
+			System.out.println(driver.getTitle());	
+		}
+		
+		 driver.findElement(By.partialLinkText("Phones")).click();
+		 driver.findElement(By.partialLinkText("HTC Touch")).click();
+		 
+		
+//		System.exit(0);
+	}
+}
